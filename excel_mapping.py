@@ -1,10 +1,14 @@
+### An algorithm to find similar columns from two csv files, with the help from the offline interaction through chatGPT prompt engineering
+### This works well with the sample data test, though simple enough and without involving LLM in the code
+
 import pandas as pd
+from sklearn.feature_extraction.text import TfidfVectorizer
+from sklearn.metrics.pairwise import cosine_similarity
+
 
 df1 = pd.read_csv('template.csv')
 df2 = pd.read_csv('table_A.csv') # table_B.csv
 
-### An algorithm to find similar columns from two csv files, with the help from the offline interaction through chatGPT prompt engineering
-### This works well with the sample data test, though simple enough and without involving LLM in the code
 
 def compute_similar_columns(df1, df2, threshold):
     similar_columns = []
@@ -26,9 +30,6 @@ def compute_similar_columns(df1, df2, threshold):
             if similarity > threshold:
                 similar_columns.append((column1, column2, similarity))
     return similar_columns
-
-from sklearn.feature_extraction.text import TfidfVectorizer
-from sklearn.metrics.pairwise import cosine_similarity
 
 def compute_cosine_similarity(list1, list2):
     # Convert the input lists to strings
@@ -52,6 +53,4 @@ def compute_cosine_similarity(list1, list2):
 similar_columns = compute_similar_columns(df1, df2, 0.8)
 for column1, column2, similarity in similar_columns:
     print(f"Similar columns: {column1} (File 1) and {column2} (File 2), Similarity: {similarity}")
-
-
 
